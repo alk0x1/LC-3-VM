@@ -5,7 +5,7 @@ mod parser;
 mod hashmaps;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
-use parser::parse_instruction;
+use parser::parse_mnemonic;
 use registers::Register;
 use hardware::Memory;
 use hashmaps::{opcode_hashmap, register_hashmap};
@@ -17,8 +17,11 @@ fn main() {
   let register_hashmap = register_hashmap();
   let start_address = 0x3000;
   
-  let instruction = parse_instruction("ADD R2, R3, R4", opcode_hashmap, register_hashmap);
-  memory.write(start_address, instruction);
+  // let instruction = parse_mnemonic("ADD R2, R3, R4", opcode_hashmap, register_hashmap);
+  // memory.write(start_address, instruction);
+  // println!("{:016b}", memory.read(start_address));
+  
+  instrucions::decode_instruction(0b001010011100000);
 }
 
 
