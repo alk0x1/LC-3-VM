@@ -1,24 +1,24 @@
 mod registers;
 mod instrucions;
 mod hardware;
+mod parser;
+mod hashmaps;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
-
+use parser::parse_instruction;
 use registers::Register;
 use hardware::Memory;
+use hashmaps::{opcode_hashmap, register_hashmap};
 
 fn main() {
   // less than 65535
-  // let mut memory: Memory = Memory::new(65535);
-
-  // memory.print_memory();
-  // write the opcodes in memory
-  // memory.write(0xAE50, 0x111);
+  let mut memory: Memory = Memory::new(65535);
+  let opcode_hashmap = opcode_hashmap();
+  let register_hashmap = register_hashmap();
+  let start_address = 0x3000;
   
-  // execute_instruction(0001000100100011)
-  read_file();
-  // memory.print_memory();
-  // println!("{:?}", memory.read(0xAE50));
+  let instruction = parse_instruction("ADD R2, R3, R4", opcode_hashmap, register_hashmap);
+  memory.write(start_address, instruction);
 }
 
 
