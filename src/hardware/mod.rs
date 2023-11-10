@@ -1,19 +1,27 @@
+use core::fmt;
+
 pub struct Memory {
   memory: Vec<MemoryContent>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct MemoryContent {
   value: u16,
   address: u16
 }
 
-
 impl Memory {
-  pub fn new() -> Self {
-    Self {
-      memory: Vec::new(),
+  pub fn new(size: usize) -> Self {
+    let mut memory = Vec::with_capacity(size);
+    for address in 0..size as u16 {
+      memory.push(MemoryContent {
+        value: 0,
+        address,
+      });
     }
+    println!("Memory initialized with {} locations", size);
+
+    Memory { memory }
   }
 
   pub fn read(&self, address: u16) -> u16 {
@@ -33,6 +41,14 @@ impl Memory {
   }
 
   pub fn print_memory(&self) {
-    println!("{:?}", self.memory);
+    for content in &self.memory {
+      println!("Memory at address 0x{:04X}: {}", content.address, content.value);
+    } 
+  }
+}
+
+impl fmt::Debug for Memory {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(f, "Memory:\n{:#?}", self.memory)
   }
 }
