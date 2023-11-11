@@ -24,7 +24,7 @@ pub fn opcode_hashmap() -> HashMap<&'static str, u16> {
 }
 
 pub fn register_hashmap() -> HashMap<&'static str, u16> {
-    let mut register_map = HashMap::new();
+    let mut register_map: HashMap<&str, u16> = HashMap::new();
     register_map.insert("R0", 0b000);
     register_map.insert("R1", 0b001);
     register_map.insert("R2", 0b010);
@@ -33,6 +33,20 @@ pub fn register_hashmap() -> HashMap<&'static str, u16> {
     register_map.insert("R5", 0b101);
     register_map.insert("R6", 0b110);
     register_map.insert("R7", 0b111);
+
+    register_map
+}
+
+pub fn register_values_hashmap() -> HashMap<u16, u16> {
+    let mut register_map = HashMap::new();
+    register_map.insert( 0b000, 0);
+    register_map.insert( 0b001, 0);
+    register_map.insert( 0b010, 0);
+    register_map.insert( 0b011, 0);
+    register_map.insert( 0b100, 0);
+    register_map.insert( 0b101, 0);
+    register_map.insert( 0b110, 0);
+    register_map.insert( 0b111, 0);
 
     register_map
 }

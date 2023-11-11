@@ -1,5 +1,5 @@
 mod registers;
-mod instrucions;
+mod instructions;
 mod hardware;
 mod parser;
 mod hashmaps;
@@ -8,20 +8,26 @@ use std::io::{self, BufRead, BufReader};
 use parser::parse_mnemonic;
 use registers::Register;
 use hardware::Memory;
-use hashmaps::{opcode_hashmap, register_hashmap};
+use hashmaps::{opcode_hashmap, register_hashmap, register_values_hashmap};
+use instructions::Instruction;
 
 fn main() {
   // less than 65535
   let mut memory: Memory = Memory::new(65535);
   let opcode_hashmap = opcode_hashmap();
   let register_hashmap = register_hashmap();
+  let register_values_hashmap = register_values_hashmap();
   let start_address = 0x3000;
   
   // let instruction = parse_mnemonic("ADD R2, R3, R4", opcode_hashmap, register_hashmap);
   // memory.write(start_address, instruction);
   // println!("{:016b}", memory.read(start_address));
   
-  instrucions::decode_instruction(0b001010011100000);
+  // instrucions::decode_instruction(0b001010011100000);
+
+  let mut instr = Instruction::new(0b001010011100000, register_values_hashmap);
+  instr.execute_instruction();
+
 }
 
 
