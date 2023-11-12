@@ -40,10 +40,10 @@ pub fn register_hashmap() -> HashMap<&'static str, u16> {
 pub fn register_values_hashmap() -> HashMap<u16, u16> {
     let mut register_map = HashMap::new();
     register_map.insert( 0b000, 0);
-    register_map.insert( 0b001, 0);
-    register_map.insert( 0b010, 0);
-    register_map.insert( 0b011, 0);
-    register_map.insert( 0b100, 0);
+    register_map.insert( 0b001, 2);
+    register_map.insert( 0b010, 4);
+    register_map.insert( 0b011, 5);
+    register_map.insert( 0b100, 6);
     register_map.insert( 0b101, 0);
     register_map.insert( 0b110, 0);
     register_map.insert( 0b111, 0);

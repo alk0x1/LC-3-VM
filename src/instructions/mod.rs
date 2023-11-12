@@ -81,10 +81,35 @@ impl Instruction {
     println!("addressing_mode - value: {:?}", self.register_value_map.get(&self.addressing_mode));
   }
 
-  fn decode_and(&self) {
+  fn decode_and(&mut self) {
+    let register1 = (self.operand >> 6) & 0b111;
+    let register2 = (self.operand >> 3) & 0b111;
+    let register1_val = self.register_value_map.get(&register1).unwrap();
+    let register2_val = self.register_value_map.get(&register2).unwrap();
+
+    println!("register1_val {:?}", register1_val);
+    println!("register2_val {:?}", register2_val);
+
+    // Perform AND operation
+    let result = register1_val & register2_val;
+
+    // Update registers or flags
+    self.register_value_map.insert(self.addressing_mode, result);
+    println!("addressing_mode - value: {:?}", self.register_value_map.get(&self.addressing_mode));
   }
 
-  fn decode_not(&self) {
+  fn decode_not(&mut self) {
+    let source_register = (self.operand >> 6) & 0b111; // Extract source register
+    let destination_register = (self.operand >> 9) & 0b111; // Extract destination register
+
+    let source_register_value = *self.register_value_map.get(&source_register).unwrap();
+    let inverted_value = !source_register_value; // Invert the bits
+
+    self.register_value_map.insert(destination_register, inverted_value); // Store the result in the destination register
+
+    println!("Source Register Value: {}", source_register_value);
+    println!("Inverted Value: {}", inverted_value);
+    println!("Stored in Destination Register: {}", destination_register);
   }
 
   fn decode_br(&self) {
