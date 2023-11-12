@@ -19,8 +19,7 @@ impl Memory {
         address,
       });
     }
-    // println!("Memory initialized with {} locations", size);
-    // println!("memory  {:?} ", memory);
+    println!("Memory initialized with {} locations", size);
 
     Memory { memory }
   }
